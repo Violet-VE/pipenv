@@ -29,3 +29,4 @@ steps:
   displayName: Make Virtualenv
   env:
     PIPENV_DEFAULT_PYTHON_VERSION: $(PIPENV_DEFAULT_PYTHON_VERSION)
+    PYTHONWARNINGS: 'ignore:DEPRECATION'

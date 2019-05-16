@@ -12,3 +12,5 @@ steps:
     pipenv run pip install -e "$(pwd)[test]" --upgrade
     echo pipenv --venv && echo pipenv --py && echo pipenv run python --version
   displayName: Make Virtualenv
+  env:
+    PYTHONWARNINGS: 'ignore:DEPRECATION'

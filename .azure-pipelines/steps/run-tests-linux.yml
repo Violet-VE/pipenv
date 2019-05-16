@@ -6,3 +6,5 @@
     git submodule sync && git submodule update --init --recursive
     pipenv run pytest --junitxml=test-results.xml
   displayName: Run integration tests
+  env:
+    PYTHONWARNINGS: 'ignore:DEPRECATION'
