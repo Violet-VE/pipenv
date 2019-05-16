@@ -12,16 +12,16 @@ steps:
     Invoke-Expression "& 'D:\.venv\Scripts\activate.ps1'"
     $env:VIRTUAL_ENV="D:\.venv"
     Write-Host "Installing local package..."
-    Invoke-Expression "& '$env:PY_EXE' -m pip install -e requests .[tests] --upgrade"
+    Invoke-Expression "& '$env:PY_EXE' -m pip install -e .[tests] requests --upgrade"
     Write-Host "upgrading local package in virtual env"
     $venv_scripts = Join-Path -path D:\.venv -childpath Scripts
     $venv_py = Join-Path -path $venv_scripts -childpath python.exe
     Write-Host "##vso[task.setvariable variable=VIRTUAL_ENV_PY]$venv_py"
-    Invoke-Expression "& '$venv_py' -m pip install -e requests .[tests] --upgrade" 2>&1
+    Invoke-Expression "& '$venv_py' -m pip install -e .[tests] requests --upgrade" 2>&1
     Write-Host "Installing pipenv development packages"
     Invoke-Expression "& '$venv_py' -m pipenv install --dev" 2>&1
     Write-Host "Installing local package in pipenv environment"
-    Invoke-Expression "& '$venv_py' -m pipenv run pip install -e requests .[tests]" 2>&1
+    Invoke-Expression "& '$venv_py' -m pipenv run pip install -e .[tests] requests" 2>&1
     Write-Host "Printing metadata"
     Write-Host $(Invoke-Expression "& '$venv_py' -m pipenv --venv" 2>&1)
     Write-Host $(Invoke-Expression "& '$venv_py' -m pipenv --py" 2>&1)
