@@ -16,6 +16,7 @@ steps:
     git submodule update --init --recursive
     Invoke-Expression "& '$env:VIRTUAL_ENV_PY' -m pipenv run pytest -ra --ignore=pipenv\patched --ignore=pipenv\vendor --junitxml=test-results.xml tests"
   displayName: Run integration tests
+  failOnStderr: false
   env:
     VIRTUAL_ENV: $(VIRTUAL_ENV)
     VIRTUAL_ENV_PY: $(VIRTUAL_ENV_PY)

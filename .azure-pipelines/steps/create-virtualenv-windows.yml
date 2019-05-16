@@ -27,6 +27,7 @@ steps:
     Write-Host $(Invoke-Expression "& '$venv_py' -m pipenv --py" 2>&1)
     Write-Host $(Invoke-Expression "& '$venv_py' -m pipenv run python --version" 2>&1)
   displayName: Make Virtualenv
+  failOnStderr: false
   env:
     PIPENV_DEFAULT_PYTHON_VERSION: $(PIPENV_DEFAULT_PYTHON_VERSION)
     PYTHONWARNINGS: 'ignore:DEPRECATION'
