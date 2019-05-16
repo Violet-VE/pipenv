@@ -12,8 +12,8 @@ steps:
     $env:TEMP='T:\'
     Write-Host "##vso[task.setvariable variable=TMP]T:\"
     $env:TMP='T:\'
-    git submodule sync
-    git submodule update --init --recursive
+    Invoke-Expression "git submodule sync -q" 2>&1
+    Invoke-Expression "git submodule update --init --recursive -q" 2>&1
     Invoke-Expression "& '$env:VIRTUAL_ENV_PY' -m pipenv run pytest -ra --ignore=pipenv\patched --ignore=pipenv\vendor --junitxml=test-results.xml tests"
   displayName: Run integration tests
   failOnStderr: false
