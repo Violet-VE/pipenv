@@ -21,7 +21,7 @@ steps:
     Write-Host "Installing pipenv development packages"
     Invoke-Expression "& '$venv_py' -m pipenv install --dev" 2>&1
     Write-Host "Installing local package in pipenv environment"
-    Invoke-Expression "& '$venv_py' -m pipenv run pip install -e .[tests] requests" 2>&1
+    # Invoke-Expression "& '$venv_py' -m pipenv run pip install -e .[tests] requests" 2>&1
     Write-Host "Printing metadata"
     Write-Host $(Invoke-Expression "& '$venv_py' -m pipenv --venv" 2>&1)
     Write-Host $(Invoke-Expression "& '$venv_py' -m pipenv --py" 2>&1)
@@ -32,3 +32,4 @@ steps:
     PIPENV_DEFAULT_PYTHON_VERSION: $(PIPENV_DEFAULT_PYTHON_VERSION)
     PYTHONWARNINGS: 'ignore:DEPRECATION'
     PIPENV_VERBOSITY: '-1'
+    PIPENV_NOSPIN: '1'
