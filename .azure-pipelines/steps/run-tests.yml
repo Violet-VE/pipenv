@@ -12,11 +12,12 @@ steps:
     echo '##vso[task.setvariable variable=PIPENV_DEFAULT_PYTHON_VERSION]$(PYTHON_VERSION)'
   env:
     PYTHON_VERSION: $(python.version)
+
+- template: create-virtualenv.yml
+
 - ${{ if eq(parameters.vmImage, 'windows-2019') }}:
-  - template: create-virtualenv-windows.yml
   - template: run-tests-windows.yml
 - ${{ if ne(parameters.vmImage, 'windows-2019') }}:
-  - template: create-virtualenv-linux.yml
   - template: run-tests-linux.yml
 
 - task: PublishTestResults@2
