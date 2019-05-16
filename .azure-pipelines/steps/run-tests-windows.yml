@@ -10,16 +10,16 @@ steps:
     pipenv run pytest -ra --ignore=pipenv\patched --ignore=pipenv\vendor --junitxml=test-results.xml tests
   displayName: Run integration tests
   env:
-    PY_EXE: $(PY_EXE)
-    GIT_SSL_CAINFO: $(GIT_SSL_CAINFO)
-    LANG: $(LANG)
-    PIP_PROCESS_DEPENDENCY_LINKS: $(PIP_PROCESS_DEPENDENCY_LINKS)
-    PIPENV_DEFAULT_PYTHON_VERSION: $(PIPENV_DEFAULT_PYTHON_VERSION)
+    PY_EXE: '$(PY_EXE)'
+    GIT_SSL_CAINFO: '$(GIT_SSL_CAINFO)'
+    LANG: '$(LANG)'
+    PIP_PROCESS_DEPENDENCY_LINKS: '$(PIP_PROCESS_DEPENDENCY_LINKS)'
+    PIPENV_DEFAULT_PYTHON_VERSION: '$(PIPENV_DEFAULT_PYTHON_VERSION)'
     PYTHONWARNINGS: 'ignore:DEPRECATION'
     PIPENV_VERBOSITY: '-1'
     PIPENV_NOSPIN: '1'
-    TMP: $(TMP)
-    TEMP: $(TEMP)
+    TMP: '$(TMP)'
+    TEMP: '$(TEMP)'
 
 # - powershell: |
 #     # Fix Git SSL errors
