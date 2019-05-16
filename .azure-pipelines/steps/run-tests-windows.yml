@@ -10,7 +10,6 @@ steps:
     pipenv run pytest -ra --ignore=pipenv\patched --ignore=pipenv\vendor --junitxml=test-results.xml tests
   displayName: Run integration tests
   env:
-    PYTHONWARNINGS: 'ignore:DEPRECATION'
     PY_EXE: $(PY_EXE)
     GIT_SSL_CAINFO: $(GIT_SSL_CAINFO)
     LANG: $(LANG)
