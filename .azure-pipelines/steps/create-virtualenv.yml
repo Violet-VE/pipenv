@@ -11,14 +11,10 @@ steps:
     echo "##vso[task.setvariable variable=PIP_PROCESS_DEPENDENCY_LINKS]1"
 
 - script: |
-    echo "Python path: $PY_EXE"
-    echo "GIT_SSL_CAINFO: $GIT_SSL_CAINFO"
-    $PY_EXE -m pipenv install --deploy --dev
+    echo "Python path: $(PY_EXE)"
+    echo "GIT_SSL_CAINFO: $(GIT_SSL_CAINFO)"
+    $(PY_EXE) -m pipenv install --deploy --dev
   env:
-    PY_EXE: '$(PY_EXE)'
-    GIT_SSL_CAINFO: '$(GIT_SSL_CAINFO)'
-    LANG: '$(LANG)'
-    PIP_PROCESS_DEPENDENCY_LINKS: '$(PIP_PROCESS_DEPENDENCY_LINKS)'
     PIPENV_DEFAULT_PYTHON_VERSION: '$(PIPENV_DEFAULT_PYTHON_VERSION)'
     PYTHONWARNINGS: 'ignore:DEPRECATION'
     PIPENV_VERBOSITY: '-1'
