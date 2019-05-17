@@ -232,6 +232,10 @@ class ConsoleStream(object):
     def name(self):
         return self.buffer.name
 
+    @property
+    def fileno(self):
+        return self.buffer.fileno
+
     def write(self, x):
         if isinstance(x, text_type):
             return self._text_stream.write(x)

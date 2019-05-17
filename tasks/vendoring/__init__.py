@@ -637,7 +637,7 @@ def license_destination(vendor_dir, libname, filename):
             ) / '{0}.{1}'.format(override.name, filename)
         license_path = LIBRARY_DIRNAMES[libname] / filename
         if license_path.as_posix() in LICENSE_RENAMES:
-            return vendor_dir / LICENSE_RENAMES[license_path.as_posix()]
+            return os.path.join(vendor_dir, LICENSE_RENAMES[license_path.as_posix())
         return vendor_dir / LIBRARY_DIRNAMES[libname] / filename
     # fallback to libname.LICENSE (used for nondirs)
     return vendor_dir / '{}.{}'.format(libname, filename)

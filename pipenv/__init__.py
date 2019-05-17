@@ -36,21 +36,19 @@ try:
 except Exception:
     pass
 
-from pipenv.vendor.vistir.misc import get_wrapped_stream
-if sys.version_info >= (3, 0):
-    stdout = sys.stdout.buffer
-    stderr = sys.stderr.buffer
-else:
-    stdout = sys.stdout
-    stderr = sys.stderr
+from pipenv.vendor.vistir.misc import get_text_stream
+stdout = get_text_stream("stdout")
+stderr = get_text_stream("stderr")
 
-
-sys.stderr = get_wrapped_stream(stderr)
-sys.stdout = get_wrapped_stream(stdout)
 if os.name == "nt":
-    from pipenv.vendor.colorama import init as colorama_init
-    colorama_init(wrap=False)
+    from pipenv.vendor.vistir.misc import _can_use_color, _wrap_for_color
+    if _can_use_color(stdout):
+        stdout = _wrap_for_color(stdout)
+    if _can_use_color(stderr):
+        stderr = _wrap_for_color(stderr)
 
+sys.stdout = stdout
+sys.stderr = stderr
 
 from .cli import cli
 from . import resolver
