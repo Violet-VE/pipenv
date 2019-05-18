@@ -1,20 +1,24 @@
 steps:
 
-- script: echo "##vso[task.setvariable variable=PY_EXE]$(python -c 'import sys; print(sys.executable)')"
+- script: |
+    pip install certifi
+    $CERTIFI_CONTENT=$(python -m certifi)
+    echo "##vso[task.setvariable variable=GIT_SSL_CAINFO]$CERTIFI_CONTENT"
+    echo "##vso[task.setvariable variable=LANG]C.UTF-8"
+    echo "##vso[task.setvariable variable=PIP_PROCESS_DEPENDENCY_LINKS]1"
+  displayName: Set Environment Variables
+
+- script: |
+    PYTHON_PATH=$(python -c 'import sys; print(sys.executable)')
+    echo "##vso[task.setvariable variable=PY_EXE]$PYTHON_PATH"
   displayName: Set Python Path
   env:
     PYTHONWARNINGS: 'ignore:DEPRECATION'
 
 - script: |
-    pip install certifi
-    echo "##vso[task.setvariable variable=GIT_SSL_CAINFO]$(python -m certifi)"
-    echo "##vso[task.setvariable variable=LANG]C.UTF-8"
-    echo "##vso[task.setvariable variable=PIP_PROCESS_DEPENDENCY_LINKS]1"
-
-- script: |
     echo "Python path: $(PY_EXE)"
     echo "GIT_SSL_CAINFO: $(GIT_SSL_CAINFO)"
-    $(PY_EXE) -m pipenv install --deploy --dev
+    python -m pipenv install --deploy --dev
   env:
     PIPENV_DEFAULT_PYTHON_VERSION: '$(PIPENV_DEFAULT_PYTHON_VERSION)'
     PYTHONWARNINGS: 'ignore:DEPRECATION'
