@@ -1,15 +1,16 @@
 steps:
 
-- script: echo "##vso[task.setvariable variable=PY_EXE]$(python -c 'import sys; print(sys.executable)')"
-  displayName: Set Python Path
-  env:
-    PYTHONWARNINGS: 'ignore:DEPRECATION'
-
 - script: |
     pip install certifi
     echo "##vso[task.setvariable variable=GIT_SSL_CAINFO]"$(python -m certifi)
     echo "##vso[task.setvariable variable=LANG]C.UTF-8"
     echo "##vso[task.setvariable variable=PIP_PROCESS_DEPENDENCY_LINKS]1"
+  displayName: Set Environment Variables
+
+- script: echo "##vso[task.setvariable variable=PY_EXE]$(python -c 'import sys; print(sys.executable)')"
+  displayName: Set Python Path
+  env:
+    PYTHONWARNINGS: 'ignore:DEPRECATION'
 
 - script: |
     echo "Python path: $(PY_EXE)"
