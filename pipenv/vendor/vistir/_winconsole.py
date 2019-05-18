@@ -39,26 +39,26 @@
 # the entire interpreter but just work in our little world of
 # echo and prmopt.
 
+import ctypes
 import io
 import os
 import sys
-import zlib
 import time
-import ctypes
-import msvcrt
+import zlib
 from ctypes import (
-    byref,
     POINTER,
-    c_int,
+    WINFUNCTYPE,
+    Structure,
+    byref,
     c_char,
     c_char_p,
-    c_void_p,
+    c_int,
     c_ssize_t,
     c_ulong,
-    py_object,
-    Structure,
-    windll,
+    c_void_p,
     create_unicode_buffer,
+    py_object,
+    windll,
 )
 from ctypes.wintypes import LPCWSTR, LPWSTR
 from itertools import count
@@ -67,7 +67,7 @@ import msvcrt
 from six import PY2, text_type
 
 from .compat import IS_TYPE_CHECKING
-from .misc import StreamWrapper, to_text, run
+from .misc import StreamWrapper, run, to_text
 
 try:
     from ctypes import pythonapi
@@ -161,6 +161,7 @@ else:
             return buffer_type.from_address(buf.buf)
         finally:
             PyBuffer_Release(byref(buf))
+
 
 def get_long_path(short_path):
     # type: (Text, str) -> Text
