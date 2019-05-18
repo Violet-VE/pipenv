@@ -7,7 +7,7 @@ steps:
 
 - script: |
     pip install certifi
-    echo "##vso[task.setvariable variable=GIT_SSL_CAINFO]$(python -m certifi)"
+    echo "##vso[task.setvariable variable=GIT_SSL_CAINFO]"$(python -m certifi)
     echo "##vso[task.setvariable variable=LANG]C.UTF-8"
     echo "##vso[task.setvariable variable=PIP_PROCESS_DEPENDENCY_LINKS]1"
 
