@@ -2,7 +2,8 @@ steps:
 
 - script: echo "##vso[task.setvariable variable=PY_EXE]$(python -c 'import sys; print(sys.executable)')"
   displayName: Set Python Path
-  PYTHONWARNINGS: 'ignore:DEPRECATION'
+  env:
+    PYTHONWARNINGS: 'ignore:DEPRECATION'
 
 - script: |
     pip install certifi
@@ -17,7 +18,6 @@ steps:
   env:
     PIPENV_DEFAULT_PYTHON_VERSION: '$(PIPENV_DEFAULT_PYTHON_VERSION)'
     PYTHONWARNINGS: 'ignore:DEPRECATION'
-    PIPENV_VERBOSITY: '-1'
     PIPENV_NOSPIN: '1'
   displayName: Make Virtualenv
 
