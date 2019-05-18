@@ -58,12 +58,16 @@ from ctypes import (
     py_object,
     Structure,
     windll,
-    WINFUNCTYPE,
+    create_unicode_buffer,
 )
-from ctypes.wintypes import LPWSTR, LPCWSTR
+from ctypes.wintypes import LPCWSTR, LPWSTR
 from itertools import count
+
+import msvcrt
 from six import PY2, text_type
-from .misc import StreamWrapper, run
+
+from .compat import IS_TYPE_CHECKING
+from .misc import StreamWrapper, to_text, run
 
 try:
     from ctypes import pythonapi
@@ -72,6 +76,10 @@ try:
     PyBuffer_Release = pythonapi.PyBuffer_Release
 except ImportError:
     pythonapi = None
+
+
+if IS_TYPE_CHECKING:
+    from typing import Text
 
 
 c_ssize_p = POINTER(c_ssize_t)
@@ -153,6 +161,14 @@ else:
             return buffer_type.from_address(buf.buf)
         finally:
             PyBuffer_Release(byref(buf))
+
+def get_long_path(short_path):
+    # type: (Text, str) -> Text
+    BUFFER_SIZE = 500
+    buffer = create_unicode_buffer(BUFFER_SIZE)
+    get_long_path_name = windll.kernel32.GetLongPathNameW
+    get_long_path_name(to_text(short_path), buffer, BUFFER_SIZE)
+    return buffer.value
 
 
 class _WindowsConsoleRawIOBase(io.RawIOBase):
